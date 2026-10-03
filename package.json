@@ -1,7 +1,7 @@
 {
   "name": "cow-game",
   "productName": "Cow Clicker",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Click the cow, earn points, and level up! Simple retro clicker game.",
   "main": "main.js",
   "scripts": {
@@ -20,6 +20,11 @@
   "build": {
     "appId": "com.nwexy.cowclicker",
     "productName": "Cow Clicker",
+    "compression": "maximum",
+    "electronLanguages": [
+      "en-US",
+      "tr"
+    ],
     "directories": {
       "output": "dist"
     },
