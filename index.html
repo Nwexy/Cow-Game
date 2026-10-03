@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Click the cow, earn points, and level up! Simple retro pixel-art clicker game." />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:;" />
+  <title>Cow Clicker</title>
+  <link rel="stylesheet" href="node_modules/@fontsource/press-start-2p/index.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="game">
+    <!-- Top HUD -->
+    <header id="hud">
+      <img id="hud-icon" src="assets/cow.png" alt="" />
+      <h1 id="score">0</h1>
+      <p id="cps">0 COWS PER SECOND</p>
+      <p id="per-click">PER CLICK: 1</p>
+    </header>
+
+    <!-- Level meter (left) -->
+    <aside id="level-meter" aria-label="Level progress">
+      <span id="level-label">LV1</span>
+      <div id="level-bar"><div id="level-fill"></div></div>
+      <span id="level-mult">x1</span>
+    </aside>
+
+    <!-- Cow Area -->
+    <section id="cow-area">
+      <button id="cow-btn" aria-label="Click the cow">
+        <img id="cow" src="assets/cow.png" alt="Cow" draggable="false" />
+      </button>
+      <div id="cow-shadow"></div>
+    </section>
+
+    <!-- Shop -->
+    <section id="shop" aria-label="Shop">
+      <div id="shop-list"></div>
+    </section>
+
+    <!-- Level up notification -->
+    <div id="levelup-banner" class="hidden">
+      <div class="lu-title">LEVEL UP!</div>
+      <div class="lu-sub" id="levelup-sub">LV2</div>
+    </div>
+
+    <button id="reset-btn" title="Reset Game">↺</button>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>

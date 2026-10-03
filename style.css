@@ -1,0 +1,368 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+:root {
+  --font: 'Press Start 2P', monospace;
+  --text: #ffffff;
+  --outline: #1a1420;
+  --gold: #ffd85a;
+  --panel: rgba(36, 30, 44, 0.82);
+  --panel-hover: rgba(58, 48, 70, 0.9);
+  --green: #7ee36b;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #1b2a3a;
+  font-family: var(--font);
+  color: var(--text);
+}
+
+#game {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: url('assets/background.jpg') center / cover no-repeat;
+  image-rendering: pixelated;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Pixel text outline */
+.outlined,
+#score,
+#cps,
+#per-click,
+#level-label,
+#level-mult,
+.float-text,
+.lu-title,
+.lu-sub {
+  text-shadow:
+    -3px 0 var(--outline), 3px 0 var(--outline),
+    0 -3px var(--outline), 0 3px var(--outline),
+    -3px -3px var(--outline), 3px 3px var(--outline),
+    -3px 3px var(--outline), 3px -3px var(--outline);
+}
+
+/* ---------- HUD ---------- */
+#hud {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 18px;
+  gap: 8px;
+  z-index: 2;
+}
+
+#hud-icon {
+  width: 40px;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.35));
+  animation: bob 2.4s ease-in-out infinite;
+}
+
+#score {
+  font-size: 40px;
+  font-weight: normal;
+  letter-spacing: 2px;
+  transition: transform 0.08s;
+}
+
+#score.pop {
+  transform: scale(1.12);
+}
+
+#cps {
+  font-size: 10px;
+  letter-spacing: 1px;
+  opacity: 0.95;
+}
+
+#per-click {
+  font-size: 9px;
+  color: var(--gold);
+}
+
+/* ---------- Level meter ---------- */
+#level-meter {
+  position: absolute;
+  left: 12px;
+  top: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 3;
+}
+
+#level-label {
+  font-size: 10px;
+  color: var(--gold);
+}
+
+#level-bar {
+  position: relative;
+  width: 22px;
+  height: 200px;
+  background: rgba(20, 16, 26, 0.75);
+  border: 3px solid var(--outline);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+}
+
+#level-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(0deg, #3fb84a, #8af06f 60%, #d9ff9e);
+  box-shadow: inset -4px 0 0 rgba(0, 0, 0, 0.18);
+  transition: height 0.15s ease-out;
+}
+
+#level-mult {
+  font-size: 9px;
+}
+
+/* ---------- Cow Area ---------- */
+#cow-area {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+#cow-btn {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  z-index: 2;
+  animation: breathe 2.8s ease-in-out infinite;
+}
+
+#cow {
+  width: 270px;
+  image-rendering: pixelated;
+  display: block;
+  filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.25));
+  transition: transform 0.07s ease-out, filter 0.15s;
+}
+
+#cow-btn:hover #cow {
+  filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.25)) brightness(1.08);
+}
+
+#cow.squish {
+  transform: scale(0.9, 0.86) translateY(8px);
+}
+
+#cow-shadow {
+  position: absolute;
+  bottom: calc(50% - 115px);
+  width: 210px;
+  height: 22px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.float-text {
+  position: absolute;
+  font-size: 16px;
+  color: var(--gold);
+  pointer-events: none;
+  z-index: 10;
+  animation: floatUp 0.9s ease-out forwards;
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+  z-index: 9;
+  animation: burst 0.6s ease-out forwards;
+}
+
+/* ---------- Shop ---------- */
+#shop {
+  padding: 0 10px 12px;
+  z-index: 3;
+}
+
+#shop-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.shop-item {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 12px;
+  background: var(--panel);
+  border: 3px solid var(--outline);
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.12), inset 0 -3px 0 rgba(0, 0, 0, 0.3);
+  color: var(--text);
+  font-family: var(--font);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s, transform 0.08s;
+}
+
+.shop-item:hover:not(.disabled) {
+  background: var(--panel-hover);
+  transform: translateX(3px);
+}
+
+.shop-item:active:not(.disabled) {
+  transform: translateY(2px);
+}
+
+.shop-item.disabled {
+  cursor: not-allowed;
+  background: rgba(30, 24, 36, 0.88);
+}
+
+.shop-item.disabled .item-icon,
+.shop-item.disabled .item-name {
+  opacity: 0.7;
+}
+
+.shop-item.locked .item-icon {
+  filter: brightness(0) opacity(0.6);
+}
+
+.item-icon {
+  font-size: 26px;
+  text-align: center;
+  line-height: 1;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.item-name {
+  font-size: 10px;
+}
+
+.item-desc {
+  font-size: 7px;
+  color: var(--green);
+}
+
+.item-cost {
+  font-size: 13px;
+  color: var(--gold);
+  text-align: right;
+}
+
+.item-cost.cant {
+  color: #ff7a6b;
+}
+
+.item-owned {
+  font-size: 8px;
+  opacity: 0.8;
+  text-align: right;
+  margin-top: 6px;
+}
+
+/* ---------- Level Up Banner ---------- */
+#levelup-banner {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 20;
+  animation: levelPop 1.6s ease-out forwards;
+}
+
+#levelup-banner.hidden {
+  display: none;
+}
+
+.lu-title {
+  font-size: 30px;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.lu-sub {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--green);
+  white-space: nowrap;
+}
+
+#reset-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  color: #fff;
+  background: var(--panel);
+  border: 3px solid var(--outline);
+  cursor: pointer;
+  z-index: 5;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+
+#reset-btn:hover {
+  opacity: 1;
+}
+
+/* ---------- Animations ---------- */
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.025, 0.985); }
+}
+
+@keyframes floatUp {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-80px) scale(1.2); }
+}
+
+@keyframes burst {
+  0% { opacity: 1; transform: translate(0, 0); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)); }
+}
+
+@keyframes levelPop {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+  15% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  25% { transform: translate(-50%, -50%) scale(1); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -70%) scale(1); }
+}

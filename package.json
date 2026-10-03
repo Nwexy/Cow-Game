@@ -1,0 +1,50 @@
+{
+  "name": "cow-game",
+  "productName": "Cow Clicker",
+  "version": "1.0.0",
+  "description": "Click the cow, earn points, and level up! Simple retro clicker game.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win portable --x64"
+  },
+  "keywords": [
+    "clicker",
+    "game",
+    "pixel-art",
+    "electron"
+  ],
+  "author": "Nwexy",
+  "license": "ISC",
+  "type": "commonjs",
+  "build": {
+    "appId": "com.nwexy.cowclicker",
+    "productName": "Cow Clicker",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "index.html",
+      "style.css",
+      "game.js",
+      "assets/**/*",
+      "node_modules/@fontsource/press-start-2p/**/*"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "assets/icon.ico",
+      "signExecutable": false
+    },
+    "portable": {
+      "artifactName": "CowClicker.exe"
+    }
+  },
+  "devDependencies": {
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3"
+  },
+  "dependencies": {
+    "@fontsource/press-start-2p": "^5.3.0"
+  }
+}
