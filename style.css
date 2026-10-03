@@ -170,6 +170,52 @@ body {
   transform: scale(0.9, 0.86) translateY(8px);
 }
 
+/* ---------- Sunglasses ---------- */
+.glasses-wrapper {
+  position: absolute;
+  top: 44px;
+  left: 24px;
+  width: 52px;
+  height: 18px;
+  transform: rotate(-6deg);
+  image-rendering: pixelated;
+  filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.45));
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  transform-origin: center center;
+}
+
+.glasses-wrapper.active {
+  animation: glassesDrop 0.65s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+}
+
+.glasses-wrapper.fade-out {
+  animation: glassesFadeOut 0.45s ease-in forwards;
+}
+
+.glasses-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.glasses-glint {
+  position: absolute;
+  top: 3px;
+  left: 10px;
+  width: 9px;
+  height: 9px;
+  background: #ffffff;
+  clip-path: polygon(50% 0%, 65% 35%, 100% 50%, 65% 65%, 50% 100%, 35% 65%, 0% 50%, 35% 35%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.glasses-wrapper.active .glasses-glint {
+  animation: glintSparkle 0.85s ease-out 0.65s forwards;
+}
+
 #cow-shadow {
   position: absolute;
   bottom: calc(50% - 115px);
@@ -208,6 +254,23 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  max-height: 236px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+#shop-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+#shop-list::-webkit-scrollbar-track {
+  background: var(--panel);
+  border: 1px solid var(--outline);
+}
+
+#shop-list::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border: 1px solid var(--outline);
 }
 
 .shop-item {
@@ -225,6 +288,7 @@ body {
   cursor: pointer;
   text-align: left;
   transition: background 0.12s, transform 0.08s;
+  flex-shrink: 0;
 }
 
 .shop-item:hover:not(.disabled) {
@@ -292,13 +356,18 @@ body {
 /* ---------- Level Up Banner ---------- */
 #levelup-banner {
   position: absolute;
-  top: 38%;
+  top: 36%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   pointer-events: none;
   z-index: 20;
-  animation: levelPop 1.6s ease-out forwards;
+  animation: levelPop 2.5s ease-out forwards;
+  background: rgba(18, 14, 24, 0.92);
+  border: 3px solid var(--gold);
+  padding: 14px 20px;
+  box-shadow: 0 0 25px rgba(255, 216, 90, 0.4), inset 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
 }
 
 #levelup-banner.hidden {
@@ -306,14 +375,23 @@ body {
 }
 
 .lu-title {
-  font-size: 30px;
+  font-size: 24px;
   color: var(--gold);
+  white-space: nowrap;
+  letter-spacing: 1px;
+}
+
+.lu-rank {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #ff9fb2;
+  letter-spacing: 1px;
   white-space: nowrap;
 }
 
 .lu-sub {
-  margin-top: 12px;
-  font-size: 12px;
+  margin-top: 8px;
+  font-size: 9px;
   color: var(--green);
   white-space: nowrap;
 }
@@ -386,8 +464,57 @@ body {
 
 @keyframes levelPop {
   0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
-  15% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
-  25% { transform: translate(-50%, -50%) scale(1); }
-  80% { opacity: 1; }
-  100% { opacity: 0; transform: translate(-50%, -70%) scale(1); }
+  12% { opacity: 1; transform: translate(-50%, -50%) scale(1.12); }
+  22% { transform: translate(-50%, -50%) scale(1); }
+  82% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -68%) scale(0.96); }
+}
+
+@keyframes glassesDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-160px) rotate(-22deg) scale(1.4);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(4px) rotate(-4deg) scale(0.95);
+  }
+  75% {
+    transform: translateY(-2px) rotate(-7deg) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(-6deg) scale(1);
+  }
+}
+
+@keyframes glassesFadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(-6deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) rotate(-10deg) scale(0.9);
+  }
+}
+
+@keyframes glintSparkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.2) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.7) rotate(45deg);
+    filter: drop-shadow(0 0 5px #ffffff);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.3) rotate(90deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.3) rotate(135deg);
+  }
 }

@@ -29,6 +29,26 @@
     <section id="cow-area">
       <button id="cow-btn" aria-label="Click the cow">
         <img id="cow" src="assets/cow.png" alt="Cow" draggable="false" />
+        <div id="cow-glasses" class="glasses-wrapper" aria-hidden="true">
+          <svg class="glasses-svg" viewBox="0 0 46 16" shape-rendering="crispEdges">
+            <rect x="0" y="2" width="6" height="3" fill="#121216" />
+            <rect x="40" y="2" width="6" height="3" fill="#121216" />
+            <rect x="4" y="2" width="38" height="3" fill="#121216" />
+            <rect x="4" y="5" width="17" height="8" fill="#121216" />
+            <rect x="6" y="13" width="13" height="3" fill="#121216" />
+            <rect x="25" y="5" width="17" height="8" fill="#121216" />
+            <rect x="27" y="13" width="13" height="3" fill="#121216" />
+            <rect x="6" y="5" width="13" height="7" fill="#1a1d24" />
+            <rect x="8" y="12" width="9" height="2" fill="#1a1d24" />
+            <rect x="27" y="5" width="13" height="7" fill="#1a1d24" />
+            <rect x="29" y="12" width="9" height="2" fill="#1a1d24" />
+            <rect x="8" y="5" width="3" height="3" fill="#ffffff" />
+            <rect x="11" y="8" width="3" height="3" fill="rgba(255,255,255,0.7)" />
+            <rect x="29" y="5" width="3" height="3" fill="#ffffff" />
+            <rect x="32" y="8" width="3" height="3" fill="rgba(255,255,255,0.7)" />
+          </svg>
+          <div class="glasses-glint"></div>
+        </div>
       </button>
       <div id="cow-shadow"></div>
     </section>
@@ -40,7 +60,8 @@
 
     <!-- Level up notification -->
     <div id="levelup-banner" class="hidden">
-      <div class="lu-title">LEVEL UP!</div>
+      <div class="lu-title" id="levelup-title">LEVEL UP!</div>
+      <div class="lu-rank" id="levelup-rank">★ CALF ★</div>
       <div class="lu-sub" id="levelup-sub">LV2</div>
     </div>
 
