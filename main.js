@@ -15,6 +15,7 @@ function createWindow() {
     icon: path.join(__dirname, 'assets', 'icon.ico'),
     webPreferences: {
       contextIsolation: true,
+      autoplayPolicy: 'no-user-gesture-required',
     },
   });
 

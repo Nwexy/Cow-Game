@@ -1,7 +1,7 @@
 {
   "name": "cow-game",
   "productName": "Cow Clicker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Click the cow, earn points, and level up! Simple retro clicker game.",
   "main": "main.js",
   "scripts": {
@@ -28,6 +28,7 @@
       "index.html",
       "style.css",
       "game.js",
+      "music.js",
       "assets/**/*",
       "node_modules/@fontsource/press-start-2p/**/*"
     ],
